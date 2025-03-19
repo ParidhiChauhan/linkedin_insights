@@ -1,15 +1,16 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey
-from app.database import Base
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
+from app.database import Base
+import datetime
 
 class Post(Base):
-    __tablename__ = 'posts'
-    
-    id = Column(Integer, primary_key=True, index=True)
-    post_id = Column(String(100), unique=True)
-    content = Column(Text)
-    likes_count = Column(Integer)
-    comments_count = Column(Integer)
-    page_id = Column(Integer, ForeignKey('linkedin_pages.id'))
+    __tablename__ = "posts"
 
-    page = relationship('LinkedInPage', back_populates='posts')
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    linkedin_page_id = Column(Integer, ForeignKey("linkedin_pages.id", ondelete="CASCADE"), nullable=False)
+    content = Column(String(1000), nullable=False)
+    likes = Column(Integer, default=0)
+    comments_count = Column(Integer, default=0)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+    page = relationship("LinkedInPage", back_populates="posts")

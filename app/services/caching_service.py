@@ -1,13 +1,11 @@
 import redis
 import json
 
-cache = redis.StrictRedis(host='localhost', port=6379, db=0)
+redis_client = redis.Redis(host='localhost', port=6379, db=0)
 
-def cache_data(key, data, ttl=300):
-    cache.setex(key, ttl, json.dumps(data))
+def get_cached_page(page_id):
+    data = redis_client.get(page_id)
+    return json.loads(data) if data else None
 
-def get_cached_data(key):
-    data = cache.get(key)
-    if data:
-        return json.loads(data)
-    return None
+def cache_page(page_id, data, ttl=300):
+    redis_client.setex(page_id, ttl, json.dumps(data))
