@@ -27,7 +27,7 @@ def get_linkedin_page(page_id: int, db: Session = Depends(get_db)):
     if not scraped_data:
         raise HTTPException(status_code=404, detail="Page not found")
 
-    # Save scraped data to DB
+
     new_page = LinkedInPage(
         id=page_id,  # Ensure ID is correctly assigned
         name=scraped_data.get("name", "Unknown")  # Ensure safe assignment

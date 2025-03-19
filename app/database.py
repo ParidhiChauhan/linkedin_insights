@@ -7,4 +7,4 @@ DATABASE_URL = "mysql+pymysql://linkedin_user:linkedin_pass@localhost:3307/linke
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-Base = declarative_base()  # Correct location of Base
+Base = declarative_base()  

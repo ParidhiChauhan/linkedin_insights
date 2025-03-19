@@ -16,5 +16,5 @@ def scrape_linkedin_page(page_id):
         "name": soup.find("title").text.strip(),
         "url": url,
         "description": "Extracted description...",
-        "total_followers": 10000  # Dummy value
+        "total_followers": 10000  
     }
